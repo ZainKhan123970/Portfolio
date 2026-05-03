@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zain ul Abideen — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060607;
+  --bg2:#0C0C0F;
+  --surface:#12121A;
+  --border:rgba(255,255,255,0.07);
+  --text:#F0EEF8;
+  --muted:#7A788A;
+  --accent:#7B61FF;
+  --accent2:#FF6B6B;
+  --accent3:#00D4AA;
+  --gold:#F5C842;
+  --font-h:'Clash Display',sans-serif;
+  --font-b:'Cabinet Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+
+.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .1s}
+.cur-r{width:32px;height:32px;border:1px solid rgba(123,97,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:left .14s ease,top .14s ease}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3rem;background:rgba(6,6,7,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--font-h);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:.02em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-badge{background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;text-decoration:none;transition:all .2s}
+.nav-badge:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(123,97,255,.4)}
+
+section{padding:7rem 3rem;position:relative;z-index:1}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem;position:relative;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);pointer-events:none}
+.hero-blob{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(123,97,255,.12) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;animation:blob 8s ease-in-out infinite alternate}
+.hero-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,.08) 0%,transparent 70%);bottom:-50px;left:-50px;pointer-events:none;animation:blob 10s ease-in-out infinite alternate-reverse}
+@keyframes blob{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.15) translate(20px,-20px)}}
+
+.hero-avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);border-radius:100px;padding:.35rem .9rem .35rem .6rem;font-size:.75rem;color:var(--accent3);margin-bottom:2rem;width:fit-content}
+.avail-dot{width:7px;height:7px;background:var(--accent3);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+.hero-tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:1.2rem}
+.hero-name{font-family:var(--font-h);font-size:clamp(3.5rem,7.5vw,8rem);font-weight:700;line-height:.95;letter-spacing:-.03em;margin-bottom:.5rem}
+.hero-name .outline{color:transparent;-webkit-text-stroke:1.5px rgba(240,238,248,.25)}
+.hero-role{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,2rem);font-weight:500;color:var(--muted);letter-spacing:-.01em;margin-bottom:1.8rem}
+.hero-role .hl{color:var(--accent)}
+.hero-desc{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.8;font-weight:400;margin-bottom:3rem}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem}
+.btn-fill{background:var(--accent);color:#fff;font-family:var(--font-h);font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(123,97,255,.4)}
+.btn-outline{border:1px solid var(--border);color:var(--text);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block;font-family:var(--font-h)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-stats{display:flex;gap:3rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.hstat-n{font-family:var(--font-h);font-size:2.4rem;font-weight:700;line-height:1;color:var(--text)}
+.hstat-n em{font-style:normal;color:var(--accent)}
+.hstat-l{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+
+.about-section{background:var(--bg2)}
+.about-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start}
+.about-label,.section-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.about-label::before,.section-label::before{content:'';display:block;width:1.2rem;height:1px;background:var(--accent)}
+.section-h{font-family:var(--font-h);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem}
+.section-sub{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem}
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;position:sticky;top:7rem}
+.about-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:1.5rem}
+.about-name{font-family:var(--font-h);font-size:1.3rem;font-weight:700;margin-bottom:.2rem}
+.about-title-tag{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.84rem}
+.info-row:last-child{border-bottom:none}
+.info-key{color:var(--muted)}
+.info-val{color:var(--text);font-weight:500;text-align:right}
+.info-val a{color:var(--accent);text-decoration:none}
+.nexora-badge{background:linear-gradient(135deg,rgba(123,97,255,.15),rgba(0,212,170,.1));border:1px solid rgba(123,97,255,.3);border-radius:8px;padding:.8rem 1rem;margin-top:1.2rem;display:flex;align-items:center;gap:.7rem}
+.nexora-badge-icon{font-size:1.2rem}
+.nexora-badge-text{font-size:.8rem;color:var(--muted);line-height:1.5}
+.nexora-badge-text strong{color:var(--text);display:block;font-size:.85rem}
+
+.about-body p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:1.2rem}
+.about-body p strong{color:var(--text)}
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:2rem}
+.value-chip{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.value-chip span:first-child{font-size:.9rem}
+
+.skills-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.tab-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:var(--font-b);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:.55rem 1.2rem;border-radius:100px;cursor:pointer;transition:all .2s}
+.tab-btn.active,.tab-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.skill-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem;transition:all .25s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,97,255,.06),transparent);opacity:0;transition:opacity .25s}
+.skill-card:hover{border-color:rgba(123,97,255,.3);transform:translateY(-3px)}
+.skill-card:hover::before{opacity:1}
+.skill-icon{font-size:1.6rem;margin-bottom:.8rem;line-height:1}
+.skill-name{font-family:var(--font-h);font-size:.95rem;font-weight:600;margin-bottom:.4rem}
+.skill-level{font-size:.75rem;color:var(--muted);margin-bottom:.8rem}
+.skill-bar-bg{height:3px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.skill-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));border-radius:100px;transition:width 1s ease}
+
+.services-section{background:var(--bg2)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
+.svc-card{padding:2.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);transition:background .25s;position:relative;cursor:default}
+.svc-card:hover{background:#16162A}
+.svc-card:hover .svc-arrow{opacity:1;transform:translate(0,0)}
+.svc-n{font-family:var(--font-h);font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:1.5rem;text-transform:uppercase}
+.svc-ico{font-size:2rem;margin-bottom:1rem;line-height:1}
+.svc-title{font-family:var(--font-h);font-size:1.15rem;font-weight:700;margin-bottom:.7rem}
+.svc-desc{font-size:.85rem;color:var(--muted);line-height:1.7}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+.svc-tag{background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.15);color:rgba(123,97,255,.9);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px}
+.svc-arrow{position:absolute;top:2rem;right:2rem;font-size:1.1rem;color:var(--accent);opacity:0;transform:translate(-6px,6px);transition:all .25s}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .25s;cursor:default}
+.proj-card:hover{border-color:rgba(123,97,255,.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.proj-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
+.proj-thumb-nexora{background:linear-gradient(135deg,#0C0C1A,#1A1040)}
+.proj-thumb-ecom{background:linear-gradient(135deg,#0A1A0F,#0F3020)}
+.proj-thumb-app{background:linear-gradient(135deg,#1A0A10,#2A0F1A)}
+.proj-thumb-ai{background:linear-gradient(135deg,#0A0A1A,#101030)}
+.proj-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,var(--surface))}
+.proj-inner{padding:1.5rem}
+.proj-badge{display:inline-block;background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.2);color:var(--accent);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;margin-bottom:.8rem}
+.proj-badge.wip{background:rgba(245,200,66,.08);border-color:rgba(245,200,66,.2);color:var(--gold)}
+.proj-title{font-family:var(--font-h);font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.proj-desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.proj-tech{display:flex;flex-wrap:wrap;gap:.35rem}
+.tech-tag{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-size:.68rem;padding:.2rem .55rem;border-radius:4px}
+
+.contact-section{background:var(--bg2)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem}
+.contact-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .2s}
+.contact-link:hover{border-color:rgba(123,97,255,.3);transform:translateX(4px)}
+.cl-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cl-mail{background:rgba(123,97,255,.1)}
+.cl-ig{background:rgba(255,107,107,.1)}
+.cl-web{background:rgba(0,212,170,.1)}
+.cl-text{flex:1}
+.cl-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.1rem}
+.cl-val{font-size:.9rem;color:var(--text);font-weight:500}
+.cl-arrow{color:var(--muted);font-size:.9rem;transition:transform .2s}
+.contact-link:hover .cl-arrow{transform:translateX(4px);color:var(--accent)}
+
+.big-cta{font-family:var(--font-h);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:1.5rem}
+.big-cta span{color:var(--accent)}
+.cta-p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem}
+
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.f-logo{font-family:var(--font-h);font-weight:700;font-size:1rem;letter-spacing:.02em}
+.f-logo span{color:var(--accent)}
+.f-copy{font-size:.75rem;color:var(--muted)}
+
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:5rem 1.5rem}
+  .hero{padding:6rem 1.5rem 4rem}
+  .about-wrap,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .about-card{position:static}
+  .process-steps{grid-template-columns:1fr 1fr}
+  footer{padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <a href="#" class="logo">Zain <span>Khan</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:nexora.official24.7@gmail.com" class="nav-badge">Hire Me →</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-avail">
+    <span class="avail-dot"></span>
+    Available for new projects
+  </div>
+  <div class="hero-tag">Full-Stack Developer · UI/UX Designer · AI Builder · Agency Founder</div>
+  <h1 class="hero-name">
+    Zain ul<br>
+    <span class="outline">Abideen</span>
+  </h1>
+  <p class="hero-role">Founder of <span class="hl">NEXORA</span> — Building Digital Futures</p>
+  <p class="hero-desc">I design and build cutting-edge web apps, mobile applications, AI-powered agents, and stunning digital experiences. I lead Nexora — a full-service digital agency delivering premium solutions to clients worldwide.</p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-fill">View My Work →</a>
+    <a href="#contact" class="btn-outline">Let's Talk</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hstat-n">50<em>+</em></div><div class="hstat-l">Projects Done</div></div>
+    <div><div class="hstat-n">30<em>+</em></div><div class="hstat-l">Happy Clients</div></div>
+    <div><div class="hstat-n">6<em>+</em></div><div class="hstat-l">Core Services</div></div>
+    <div><div class="hstat-n">24<em>/7</em></div><div class="hstat-l">Support</div></div>
+  </div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-wrap">
+    <div class="about-body fade-in">
+      <div class="about-label">About Me</div>
+      <h2 class="section-h">The Mind<br>Behind Nexora</h2>
+      <p>I'm <strong>Zain ul Abideen Khan</strong> — a passionate digital creator, developer, and entrepreneur. I founded Nexora with one mission: to deliver world-class digital products that actually move the needle for businesses.</p>
+      <p>I work across the full spectrum of digital — from designing pixel-perfect interfaces to building powerful web applications, developing mobile apps, and creating AI-driven automation systems. I don't just code; I craft experiences.</p>
+      <p>Every project I take on is treated like a product — with strategy, creativity, and technical precision baked in from day one. Whether it's a startup's first website or an enterprise AI agent, <strong>I build it to last and built to perform.</strong></p>
+      <div class="values-grid">
+        <div class="value-chip"><span>⚡</span> Fast Delivery</div>
+        <div class="value-chip"><span>🎯</span> Goal-Oriented</div>
+        <div class="value-chip"><span>🔒</span> Secure & Scalable</div>
+        <div class="value-chip"><span>💬</span> Clear Communication</div>
+        <div class="value-chip"><span>🧠</span> AI-Forward Thinking</div>
+        <div class="value-chip"><span>🎨</span> Design-Led Dev</div>
+      </div>
+    </div>
+    <div class="fade-in" style="transition-delay:.15s">
+      <div class="about-card">
+        <div class="about-avatar">ZA</div>
+        <div class="about-name">Zain ul Abideen Khan</div>
+        <div class="about-title-tag">Founder & CEO · Nexora Digital Agency</div>
+        <div class="info-row"><span class="info-key">Location</span><span class="info-val">Karachi, Pakistan 🇵🇰</span></div>
+        <div class="info-row"><span class="info-key">Email</span><span class="info-val"><a href="mailto:nexora.official24.7@gmail.com">nexora.official24.7@gmail.com</a></span></div>
+        <div class="info-row"><span class="info-key">Agency</span><span class="info-val"><a href="https://gettnexorax.vercel.app" target="_blank">gettnexorax.vercel.app</a></span></div>
+        <div class="info-row"><span class="info-key">Instagram</span><span class="info-val"><a href="https://instagram.com/nexora24_7" target="_blank">@nexora24_7</a></span></div>
+        <div class="info-row"><span class="info-key">Status</span><span class="info-val" style="color:#00D4AA">● Open to Work</span></div>
+        <div class="nexora-badge">
+          <div class="nexora-badge-icon">🏢</div>
+          <div class="nexora-badge-text"><strong>NEXORA Digital Agency</strong>Full-service agency · Web · AI · Mobile · Design</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-h fade-in">Skills & Technologies</h2>
+  <p class="section-sub fade-in" style="transition-delay:.1s">Tools, technologies and disciplines I work with every day to build exceptional digital products.</p>
+  <div class="skills-tabs">
+    <button class="tab-btn active" onclick="showTab('all',this)">All Skills</button>
+    <button class="tab-btn" onclick="showTab('webdev',this)">Web Development</button>
+    <button class="tab-btn" onclick="showTab('design',this)">UI/UX Design</button>
+    <button class="tab-btn" onclick="showTab('mobile',this)">Mobile</button>
+    <button class="tab-btn" onclick="showTab('ai',this)">AI / Automation</button>
+  </div>
+  <div class="skills-grid" id="skills-container"></div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="section-label">What I Offer</div>
+  <h2 class="section-h fade-in">Services I Provide</h2>
+  <p class="section-sub fade-in" style="transition-delay:.1s">End-to-end digital solutions — from strategy to deployment, designed to grow your business.</p>
+  <div class="svc-grid fade-in" style="transition-delay:.2s">
+    <div class="svc-card">
+      <div class="svc-n">01</div>
+      <div class="svc-ico">🌐</div>
+      <div class="svc-title">Web Development</div>
+      <p class="svc-desc">Custom, high-performance websites and web applications built with modern tech. Fast, secure, responsive, and tailored to your needs.</p>
+      <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">Node.js</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-n">02</div>
+      <div class="svc-ico">🎨</div>
+      <div class="svc-title">UI / UX Design</div>
+      <p class="svc-desc">User-centric interfaces that balance aesthetics and usability. From wireframes to fully polished, conversion-ready designs.</p>
+      <div class="svc-tags"><span class="svc-tag">Figma</span><span class="svc-tag">Prototyping</span><span class="svc-tag">Research</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-n">03</div>
+      <div class="svc-ico">📱</div>
+      <div class="svc-title">Mobile Apps</div>
+      <p class="svc-desc">Cross-platform iOS & Android applications with native-level performance and smooth, intuitive interfaces users love.</p>
+      <div class="svc-tags"><span class="svc-tag">React Native</span><span class="svc-tag">Flutter</span><span class="svc-tag">iOS/Android</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-n">04</div>
+      <div class="svc-ico">🤖</div>
+      <div class="svc-title">AI Agents & Automation</div>
+      <p class="svc-desc">Intelligent AI agents that automate workflows, engage customers, and supercharge your business operations 24/7.</p>
+      <div class="svc-tags"><span class="svc-tag">OpenAI</span><span class="svc-tag">LangChain</span><span class="svc-tag">Chatbots</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-n">05</div>
+      <div class="svc-ico">📐</div>
+      <div class="svc-title">Wireframing & Strategy</div>
+      <p class="svc-desc">Strategic product blueprints that map out structure, flow, and user journeys before a single line of code is written.</p>
+      <div class="svc-tags"><span class="svc-tag">Figma</span><span class="svc-tag">Miro</span><span class="svc-tag">User Flows</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-n">06</div>
+      <div class="svc-ico">⚡</div>
+      <div class="svc-title">Performance & SEO</div>
+      <p class="svc-desc">Speed audits, Core Web Vitals tuning, and SEO optimization that push your digital presence to the top.</p>
+      <div class="svc-tags"><span class="svc-tag">Core Web Vitals</span><span class="svc-tag">SEO</span><span class="svc-tag">Lighthouse</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-h fade-in">Featured Work</h2>
+  <p class="section-sub fade-in" style="transition-delay:.1s">Projects currently in development or under client review — previews available on request.</p>
+  <div class="proj-grid fade-in" style="transition-delay:.2s">
+    <div class="proj-card">
+      <div class="proj-thumb proj-thumb-nexora">🏢</div>
+      <div class="proj-inner">
+        <div class="proj-badge">Live</div>
+        <div class="proj-title">NEXORA Agency Website</div>
+        <p class="proj-desc">Full brand identity + website for Nexora digital agency. Features modern UI, service showcase, and lead capture.</p>
+        <div class="proj-tech"><span class="tech-tag">React</span><span class="tech-tag">Vercel</span><span class="tech-tag">UI/UX</span></div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-thumb proj-thumb-ecom">🛒</div>
+      <div class="proj-inner">
+        <div class="proj-badge wip">In Development</div>
+        <div class="proj-title">E-Commerce Platform</div>
+        <p class="proj-desc">Full-stack e-commerce solution with product management, cart, payments, and admin dashboard for a retail client.</p>
+        <div class="proj-tech"><span class="tech-tag">Next.js</span><span class="tech-tag">Stripe</span><span class="tech-tag">MongoDB</span></div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-thumb proj-thumb-app">📱</div>
+      <div class="proj-inner">
+        <div class="proj-badge wip">In Development</div>
+        <div class="proj-title">Mobile App — Client Project</div>
+        <p class="proj-desc">Cross-platform mobile application with real-time features, push notifications, and a polished user experience.</p>
+        <div class="proj-tech"><span class="tech-tag">React Native</span><span class="tech-tag">Firebase</span><span class="tech-tag">iOS/Android</span></div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-thumb proj-thumb-ai">🤖</div>
+      <div class="proj-inner">
+        <div class="proj-badge wip">In Development</div>
+        <div class="proj-title">AI Customer Agent</div>
+        <p class="proj-desc">Intelligent AI-powered chat agent for automated customer support, lead qualification, and appointment booking.</p>
+        <div class="proj-tech"><span class="tech-tag">OpenAI</span><span class="tech-tag">Node.js</span><span class="tech-tag">Automation</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem">More projects available via private preview</p>
+    <a href="mailto:nexora.official24.7@gmail.com?subject=Project Preview Request" class="btn-outline" style="display:inline-block">Request a Preview →</a>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-wrap">
+    <div class="fade-in">
+      <div class="section-label">Get In Touch</div>
+      <div class="contact-links">
+        <a href="mailto:nexora.official24.7@gmail.com" class="contact-link">
+          <div class="cl-icon cl-mail">📧</div>
+          <div class="cl-text"><div class="cl-label">Email</div><div class="cl-val">nexora.official24.7@gmail.com</div></div>
+          <div class="cl-arrow">→</div>
+        </a>
+        <a href="https://instagram.com/nexora24_7" target="_blank" class="contact-link">
+          <div class="cl-icon cl-ig">📸</div>
+          <div class="cl-text"><div class="cl-label">Instagram</div><div class="cl-val">@nexora24_7</div></div>
+          <div class="cl-arrow">→</div>
+        </a>
+        <a href="https://gettnexorax.vercel.app" target="_blank" class="contact-link">
+          <div class="cl-icon cl-web">🌐</div>
+          <div class="cl-text"><div class="cl-label">Agency Website</div><div class="cl-val">gettnexorax.vercel.app</div></div>
+          <div class="cl-arrow">→</div>
+        </a>
+      </div>
+    </div>
+    <div class="fade-in" style="transition-delay:.15s">
+      <h2 class="big-cta">Let's Build<br><span>Something</span><br>Great.</h2>
+      <p class="cta-p">Have a project in mind? Whether it's a website, mobile app, AI solution, or full brand identity — I'm ready to bring your vision to life. Let's connect and make it happen.</p>
+      <a href="mailto:nexora.official24.7@gmail.com?subject=New Project Inquiry&body=Hi Zain, I'd like to discuss a project with you." class="btn-fill">Start a Conversation →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Zain <span>Khan</span></div>
+  <p class="f-copy">© 2025 Zain ul Abideen Khan · Founder of NEXORA · Built with passion from Karachi 🇵🇰</p>
+</footer>
+
+<script>
+const skills = {
+  webdev:[
+    {icon:'⚛️',name:'React / Next.js',level:'Expert',pct:95},
+    {icon:'🟨',name:'JavaScript / TypeScript',level:'Expert',pct:93},
+    {icon:'🟩',name:'Node.js / Express',level:'Advanced',pct:88},
+    {icon:'🐍',name:'Python',level:'Intermediate',pct:75},
+    {icon:'🗄️',name:'MongoDB / SQL',level:'Advanced',pct:84},
+    {icon:'☁️',name:'Vercel / AWS',level:'Advanced',pct:82},
+  ],
+  design:[
+    {icon:'🎨',name:'Figma',level:'Expert',pct:96},
+    {icon:'✏️',name:'UI Design',level:'Expert',pct:94},
+    {icon:'🔬',name:'UX Research',level:'Advanced',pct:86},
+    {icon:'📐',name:'Wireframing',level:'Expert',pct:95},
+    {icon:'💅',name:'CSS / Tailwind',level:'Expert',pct:97},
+    {icon:'🎭',name:'Motion Design',level:'Advanced',pct:80},
+  ],
+  mobile:[
+    {icon:'📱',name:'React Native',level:'Advanced',pct:85},
+    {icon:'🦋',name:'Flutter',level:'Intermediate',pct:72},
+    {icon:'🔥',name:'Firebase',level:'Advanced',pct:88},
+    {icon:'🍎',name:'iOS / Android',level:'Advanced',pct:83},
+  ],
+  ai:[
+    {icon:'🤖',name:'OpenAI / GPT',level:'Advanced',pct:90},
+    {icon:'🔗',name:'LangChain',level:'Intermediate',pct:76},
+    {icon:'🧠',name:'AI Agent Design',level:'Advanced',pct:87},
+    {icon:'⚙️',name:'Automation / n8n',level:'Advanced',pct:85},
+  ]
+};
+const all = [...skills.webdev,...skills.design,...skills.mobile,...skills.ai];
+skills.all = all;
+
+function showTab(cat,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const container = document.getElementById('skills-container');
+  container.innerHTML = '';
+  skills[cat].forEach((s,i)=>{
+    const card = document.createElement('div');
+    card.className='skill-card fade-in';
+    card.style.transitionDelay=(i*.04)+'s';
+    card.innerHTML=`<div class="skill-icon">${s.icon}</div><div class="skill-name">${s.name}</div><div class="skill-level">${s.level}</div><div class="skill-bar-bg"><div class="skill-bar" style="width:0" data-pct="${s.pct}"></div></div>`;
+    container.appendChild(card);
+    setTimeout(()=>{card.classList.add('visible');const bar=card.querySelector('.skill-bar');setTimeout(()=>bar.style.width=bar.dataset.pct+'%',100);},50+i*40);
+  });
+}
+showTab('all',document.querySelector('.tab-btn.active'));
+
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px';});
+(function anim(){rx+=(mx-rx-16)*.13;ry+=(my-ry-16)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.svc-card,.proj-card,.skill-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.transform='scale(1.5)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.transform='scale(1)';});
+});
+
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
