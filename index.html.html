@@ -35,7 +35,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-badge{background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;text-decoration:none;transition:all .2s}
+.nav-badge{background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:var(--font-b)}
 .nav-badge:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(123,97,255,.4)}
 
 section{padding:7rem 3rem;position:relative;z-index:1}
@@ -57,9 +57,9 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 .hero-role .hl{color:var(--accent)}
 .hero-desc{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.8;font-weight:400;margin-bottom:3rem}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem}
-.btn-fill{background:var(--accent);color:#fff;font-family:var(--font-h);font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-fill{background:var(--accent);color:#fff;font-family:var(--font-h);font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block;cursor:pointer;border:none}
 .btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(123,97,255,.4)}
-.btn-outline{border:1px solid var(--border);color:var(--text);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block;font-family:var(--font-h)}
+.btn-outline{border:1px solid var(--border);color:var(--text);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block;font-family:var(--font-h);cursor:pointer;background:transparent}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 
 .hero-stats{display:flex;gap:3rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
@@ -81,7 +81,7 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 .info-row:last-child{border-bottom:none}
 .info-key{color:var(--muted)}
 .info-val{color:var(--text);font-weight:500;text-align:right}
-.info-val a{color:var(--accent);text-decoration:none}
+.info-val a{color:var(--accent);text-decoration:none;cursor:pointer}
 .nexora-badge{background:linear-gradient(135deg,rgba(123,97,255,.15),rgba(0,212,170,.1));border:1px solid rgba(123,97,255,.3);border-radius:8px;padding:.8rem 1rem;margin-top:1.2rem;display:flex;align-items:center;gap:.7rem}
 .nexora-badge-icon{font-size:1.2rem}
 .nexora-badge-text{font-size:.8rem;color:var(--muted);line-height:1.5}
@@ -140,7 +140,7 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 .contact-section{background:var(--bg2)}
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
 .contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem}
-.contact-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .2s}
+.contact-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .2s;cursor:pointer}
 .contact-link:hover{border-color:rgba(123,97,255,.3);transform:translateX(4px)}
 .cl-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .cl-mail{background:rgba(123,97,255,.1)}
@@ -171,7 +171,6 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
   .hero{padding:6rem 1.5rem 4rem}
   .about-wrap,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}
   .about-card{position:static}
-  .process-steps{grid-template-columns:1fr 1fr}
   footer{padding:2rem 1.5rem}
 }
 </style>
@@ -182,7 +181,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
 <div class="cur-r" id="curR"></div>
 
 <nav>
-  <a href="#" class="logo">Zain <span>Khan</span></a>
+  <a href="#" class="logo">ZAIN<span>.</span>DEV</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -190,7 +189,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:nexora.official24.7@gmail.com" class="nav-badge">Hire Me →</a>
+  <button onclick="openEmail('Hire Me — Project Inquiry','Hi Zain, I would like to hire you for a project.')" class="nav-badge">Hire Me →</button>
 </nav>
 
 <section class="hero" id="home">
@@ -243,7 +242,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
         <div class="about-name">Zain ul Abideen Khan</div>
         <div class="about-title-tag">Founder & CEO · Nexora Digital Agency</div>
         <div class="info-row"><span class="info-key">Location</span><span class="info-val">Karachi, Pakistan 🇵🇰</span></div>
-        <div class="info-row"><span class="info-key">Email</span><span class="info-val"><a href="mailto:nexora.official24.7@gmail.com">nexora.official24.7@gmail.com</a></span></div>
+        <div class="info-row"><span class="info-key">Email</span><span class="info-val"><a onclick="openEmail('Hello','Hi Zain!')" style="cursor:pointer;">nexora.official24.7@gmail.com</a></span></div>
         <div class="info-row"><span class="info-key">Agency</span><span class="info-val"><a href="https://gettnexorax.vercel.app" target="_blank">gettnexorax.vercel.app</a></span></div>
         <div class="info-row"><span class="info-key">Instagram</span><span class="info-val"><a href="https://instagram.com/nexora24_7" target="_blank">@nexora24_7</a></span></div>
         <div class="info-row"><span class="info-key">Status</span><span class="info-val" style="color:#00D4AA">● Open to Work</span></div>
@@ -370,7 +369,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
   </div>
   <div style="text-align:center;margin-top:2.5rem">
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem">More projects available via private preview</p>
-    <a href="mailto:nexora.official24.7@gmail.com?subject=Project Preview Request" class="btn-outline" style="display:inline-block">Request a Preview →</a>
+    <button onclick="openEmail('Project Preview Request','Hi Zain, I would like to request a preview of your projects.')" class="btn-outline" style="display:inline-block">Request a Preview →</button>
   </div>
 </section>
 
@@ -379,11 +378,11 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
     <div class="fade-in">
       <div class="section-label">Get In Touch</div>
       <div class="contact-links">
-        <a href="mailto:nexora.official24.7@gmail.com" class="contact-link">
+        <div onclick="openEmail('New Project Inquiry','Hi Zain, I would like to discuss a project with you.')" class="contact-link">
           <div class="cl-icon cl-mail">📧</div>
           <div class="cl-text"><div class="cl-label">Email</div><div class="cl-val">nexora.official24.7@gmail.com</div></div>
           <div class="cl-arrow">→</div>
-        </a>
+        </div>
         <a href="https://instagram.com/nexora24_7" target="_blank" class="contact-link">
           <div class="cl-icon cl-ig">📸</div>
           <div class="cl-text"><div class="cl-label">Instagram</div><div class="cl-val">@nexora24_7</div></div>
@@ -399,17 +398,30 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
     <div class="fade-in" style="transition-delay:.15s">
       <h2 class="big-cta">Let's Build<br><span>Something</span><br>Great.</h2>
       <p class="cta-p">Have a project in mind? Whether it's a website, mobile app, AI solution, or full brand identity — I'm ready to bring your vision to life. Let's connect and make it happen.</p>
-      <a href="mailto:nexora.official24.7@gmail.com?subject=New Project Inquiry&body=Hi Zain, I'd like to discuss a project with you." class="btn-fill">Start a Conversation →</a>
+      <button onclick="openEmail('New Project Inquiry','Hi Zain, I\'d like to discuss a project with you.')" class="btn-fill">Start a Conversation →</button>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="f-logo">Zain <span>Khan</span></div>
+  <div class="f-logo">ZAIN<span>.</span>DEV</div>
   <p class="f-copy">© 2025 Zain ul Abideen Khan · Founder of NEXORA · Built with passion from Karachi 🇵🇰</p>
 </footer>
 
 <script>
+// ── Smart Email Opener ──────────────────────────────────────────────────────
+function openEmail(subject, body) {
+  var email = 'nexora.official24.7@gmail.com';
+  var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  } else {
+    var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.open(gmailUrl, '_blank');
+  }
+}
+
+// ── Skills Data ─────────────────────────────────────────────────────────────
 const skills = {
   webdev:[
     {icon:'⚛️',name:'React / Next.js',level:'Expert',pct:95},
@@ -459,15 +471,17 @@ function showTab(cat,btn){
 }
 showTab('all',document.querySelector('.tab-btn.active'));
 
+// ── Custom Cursor ───────────────────────────────────────────────────────────
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px';});
 (function anim(){rx+=(mx-rx-16)*.13;ry+=(my-ry-16)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,.svc-card,.proj-card,.skill-card').forEach(el=>{
+document.querySelectorAll('a,button,.svc-card,.proj-card,.skill-card,.contact-link').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.transform='scale(1.5)';});
   el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.transform='scale(1)';});
 });
 
+// ── Scroll Reveal ───────────────────────────────────────────────────────────
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
 document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 </script>
