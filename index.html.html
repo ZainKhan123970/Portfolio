@@ -23,6 +23,7 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--font-b);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+body.no-scroll{overflow:hidden}
 
 .cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .1s}
 .cur-r{width:32px;height:32px;border:1px solid rgba(123,97,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:left .14s ease,top .14s ease}
@@ -109,8 +110,8 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 
 .services-section{background:var(--bg2)}
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
-.svc-card{padding:2.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);transition:background .25s;position:relative;cursor:default}
-.svc-card:hover{background:#16162A}
+.svc-card{padding:2.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);transition:background .15s,transform .15s;position:relative}
+.svc-card:hover{background:#16162A;transform:translateY(-2px)}
 .svc-card:hover .svc-arrow{opacity:1;transform:translate(0,0)}
 .svc-n{font-family:var(--font-h);font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:1.5rem;text-transform:uppercase}
 .svc-ico{font-size:2rem;margin-bottom:1rem;line-height:1}
@@ -118,10 +119,10 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 .svc-desc{font-size:.85rem;color:var(--muted);line-height:1.7}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
 .svc-tag{background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.15);color:rgba(123,97,255,.9);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px}
-.svc-arrow{position:absolute;top:2rem;right:2rem;font-size:1.1rem;color:var(--accent);opacity:0;transform:translate(-6px,6px);transition:all .25s}
+.svc-arrow{position:absolute;top:2rem;right:2rem;font-size:1.1rem;color:var(--accent);opacity:0;transform:translate(-6px,6px);transition:all .15s}
 
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
-.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .25s;cursor:default}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .15s}
 .proj-card:hover{border-color:rgba(123,97,255,.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .proj-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
 .proj-thumb-nexora{background:linear-gradient(135deg,#0C0C1A,#1A1040)}
@@ -137,24 +138,45 @@ section{padding:7rem 3rem;position:relative;z-index:1}
 .proj-tech{display:flex;flex-wrap:wrap;gap:.35rem}
 .tech-tag{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-size:.68rem;padding:.2rem .55rem;border-radius:4px}
 
-.contact-section{background:var(--bg2)}
-.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem}
-.contact-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .2s;cursor:pointer}
-.contact-link:hover{border-color:rgba(123,97,255,.3);transform:translateX(4px)}
-.cl-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.cl-mail{background:rgba(123,97,255,.1)}
-.cl-ig{background:rgba(255,107,107,.1)}
-.cl-web{background:rgba(0,212,170,.1)}
-.cl-text{flex:1}
-.cl-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.1rem}
-.cl-val{font-size:.9rem;color:var(--text);font-weight:500}
-.cl-arrow{color:var(--muted);font-size:.9rem;transition:transform .2s}
-.contact-link:hover .cl-arrow{transform:translateX(4px);color:var(--accent)}
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(4,4,6,.78);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;visibility:hidden;transition:opacity .2s ease}
+.modal-overlay.active{opacity:1;visibility:visible}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;max-width:540px;width:100%;padding:2.6rem;position:relative;transform:translateY(16px) scale(.98);transition:transform .25s ease;max-height:85vh;overflow-y:auto}
+.modal-overlay.active .modal-box{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:1.3rem;right:1.3rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.modal-close:hover{background:var(--accent2);border-color:var(--accent2)}
+.modal-n{font-family:var(--font-h);font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:1.2rem}
+.modal-ico{font-size:2.4rem;margin-bottom:1rem}
+.modal-title{font-family:var(--font-h);font-size:1.6rem;font-weight:700;margin-bottom:1rem}
+.modal-desc{font-size:.92rem;color:var(--muted);line-height:1.85;margin-bottom:1.6rem}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem}
+.modal-badge{display:inline-block;background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.2);color:var(--accent);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:4px;margin-bottom:1rem}
 
-.big-cta{font-family:var(--font-h);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:1.5rem}
-.big-cta span{color:var(--accent)}
-.cta-p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem}
+.contact-section{background:var(--bg2)}
+.contact-box{position:relative;border:1px solid var(--border);border-radius:4px;padding:3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;background:var(--surface)}
+.plus-corner{position:absolute;color:var(--muted);font-size:1.3rem;line-height:1;font-weight:300}
+.plus-corner.tl{top:-.75rem;left:-.75rem}
+.plus-corner.tr{top:-.75rem;right:-.75rem}
+.plus-corner.bl{bottom:-.75rem;left:-.75rem}
+.plus-corner.br{bottom:-.75rem;right:-.75rem}
+.contact-heading{font-family:var(--font-h);font-size:clamp(2rem,3.6vw,3rem);font-weight:700;letter-spacing:-.02em;margin-bottom:1.2rem}
+.contact-lede{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:2.2rem;max-width:420px}
+.info-blocks{display:flex;flex-wrap:wrap;gap:1.6rem}
+.info-block{display:flex;align-items:center;gap:.8rem}
+.info-block-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.info-block-title{font-family:var(--font-h);font-size:.9rem;font-weight:600;margin-bottom:.15rem}
+.info-block-val{font-size:.8rem;color:var(--muted)}
+.info-block-val a{color:var(--muted);text-decoration:none}
+.info-block-val a:hover{color:var(--accent)}
+
+.form-group{margin-bottom:1.3rem}
+.form-label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:.5rem;letter-spacing:.02em}
+.form-input,.form-textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;padding:.75rem .9rem;color:var(--text);font-family:var(--font-b);font-size:.88rem;transition:border-color .2s}
+.form-input:focus,.form-textarea:focus{outline:none;border-color:var(--accent)}
+.form-textarea{resize:vertical;min-height:110px}
+.form-submit{width:100%;background:var(--accent);color:#fff;font-family:var(--font-h);font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.9rem;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:.4rem}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(123,97,255,.4)}
+.form-note{font-size:.72rem;color:var(--muted);margin-top:.8rem;text-align:center}
 
 footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
 .f-logo{font-family:var(--font-h);font-weight:700;font-size:1rem;letter-spacing:.02em}
@@ -169,8 +191,9 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
   .nav-links{display:none}
   section{padding:5rem 1.5rem}
   .hero{padding:6rem 1.5rem 4rem}
-  .about-wrap,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .about-wrap{grid-template-columns:1fr;gap:2.5rem}
   .about-card{position:static}
+  .contact-box{grid-template-columns:1fr;gap:2.5rem;padding:2rem}
   footer{padding:2rem 1.5rem}
 }
 </style>
@@ -272,101 +295,15 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
 <section class="services-section" id="services">
   <div class="section-label">What I Offer</div>
   <h2 class="section-h fade-in">Services I Provide</h2>
-  <p class="section-sub fade-in" style="transition-delay:.1s">End-to-end digital solutions — from strategy to deployment, designed to grow your business.</p>
-  <div class="svc-grid fade-in" style="transition-delay:.2s">
-    <div class="svc-card">
-      <div class="svc-n">01</div>
-      <div class="svc-ico">🌐</div>
-      <div class="svc-title">Web Development</div>
-      <p class="svc-desc">Custom, high-performance websites and web applications built with modern tech. Fast, secure, responsive, and tailored to your needs.</p>
-      <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">Node.js</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-n">02</div>
-      <div class="svc-ico">🎨</div>
-      <div class="svc-title">UI / UX Design</div>
-      <p class="svc-desc">User-centric interfaces that balance aesthetics and usability. From wireframes to fully polished, conversion-ready designs.</p>
-      <div class="svc-tags"><span class="svc-tag">Figma</span><span class="svc-tag">Prototyping</span><span class="svc-tag">Research</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-n">03</div>
-      <div class="svc-ico">📱</div>
-      <div class="svc-title">Mobile Apps</div>
-      <p class="svc-desc">Cross-platform iOS & Android applications with native-level performance and smooth, intuitive interfaces users love.</p>
-      <div class="svc-tags"><span class="svc-tag">React Native</span><span class="svc-tag">Flutter</span><span class="svc-tag">iOS/Android</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-n">04</div>
-      <div class="svc-ico">🤖</div>
-      <div class="svc-title">AI Agents & Automation</div>
-      <p class="svc-desc">Intelligent AI agents that automate workflows, engage customers, and supercharge your business operations 24/7.</p>
-      <div class="svc-tags"><span class="svc-tag">OpenAI</span><span class="svc-tag">LangChain</span><span class="svc-tag">Chatbots</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-n">05</div>
-      <div class="svc-ico">📐</div>
-      <div class="svc-title">Wireframing & Strategy</div>
-      <p class="svc-desc">Strategic product blueprints that map out structure, flow, and user journeys before a single line of code is written.</p>
-      <div class="svc-tags"><span class="svc-tag">Figma</span><span class="svc-tag">Miro</span><span class="svc-tag">User Flows</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-n">06</div>
-      <div class="svc-ico">⚡</div>
-      <div class="svc-title">Performance & SEO</div>
-      <p class="svc-desc">Speed audits, Core Web Vitals tuning, and SEO optimization that push your digital presence to the top.</p>
-      <div class="svc-tags"><span class="svc-tag">Core Web Vitals</span><span class="svc-tag">SEO</span><span class="svc-tag">Lighthouse</span></div>
-      <div class="svc-arrow">↗</div>
-    </div>
-  </div>
+  <p class="section-sub fade-in" style="transition-delay:.1s">End-to-end digital solutions — from strategy to deployment, designed to grow your business. Click any service to see more.</p>
+  <div class="svc-grid fade-in" style="transition-delay:.2s" id="svc-grid"></div>
 </section>
 
 <section id="projects">
   <div class="section-label">Portfolio</div>
   <h2 class="section-h fade-in">Featured Work</h2>
-  <p class="section-sub fade-in" style="transition-delay:.1s">Projects currently in development or under client review — previews available on request.</p>
-  <div class="proj-grid fade-in" style="transition-delay:.2s">
-    <div class="proj-card">
-      <div class="proj-thumb proj-thumb-nexora">🏢</div>
-      <div class="proj-inner">
-        <div class="proj-badge">Live</div>
-        <div class="proj-title">NEXORA Agency Website</div>
-        <p class="proj-desc">Full brand identity + website for Nexora digital agency. Features modern UI, service showcase, and lead capture.</p>
-        <div class="proj-tech"><span class="tech-tag">React</span><span class="tech-tag">Vercel</span><span class="tech-tag">UI/UX</span></div>
-      </div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-thumb proj-thumb-ecom">🛒</div>
-      <div class="proj-inner">
-        <div class="proj-badge wip">In Development</div>
-        <div class="proj-title">E-Commerce Platform</div>
-        <p class="proj-desc">Full-stack e-commerce solution with product management, cart, payments, and admin dashboard for a retail client.</p>
-        <div class="proj-tech"><span class="tech-tag">Next.js</span><span class="tech-tag">Stripe</span><span class="tech-tag">MongoDB</span></div>
-      </div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-thumb proj-thumb-app">📱</div>
-      <div class="proj-inner">
-        <div class="proj-badge wip">In Development</div>
-        <div class="proj-title">Mobile App — Client Project</div>
-        <p class="proj-desc">Cross-platform mobile application with real-time features, push notifications, and a polished user experience.</p>
-        <div class="proj-tech"><span class="tech-tag">React Native</span><span class="tech-tag">Firebase</span><span class="tech-tag">iOS/Android</span></div>
-      </div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-thumb proj-thumb-ai">🤖</div>
-      <div class="proj-inner">
-        <div class="proj-badge wip">In Development</div>
-        <div class="proj-title">AI Customer Agent</div>
-        <p class="proj-desc">Intelligent AI-powered chat agent for automated customer support, lead qualification, and appointment booking.</p>
-        <div class="proj-tech"><span class="tech-tag">OpenAI</span><span class="tech-tag">Node.js</span><span class="tech-tag">Automation</span></div>
-      </div>
-    </div>
-  </div>
+  <p class="section-sub fade-in" style="transition-delay:.1s">Projects currently in development or under client review — click a project for details.</p>
+  <div class="proj-grid fade-in" style="transition-delay:.2s" id="proj-grid"></div>
   <div style="text-align:center;margin-top:2.5rem">
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem">More projects available via private preview</p>
     <button onclick="openEmail('Project Preview Request','Hi Zain, I would like to request a preview of your projects.')" class="btn-outline" style="display:inline-block">Request a Preview →</button>
@@ -374,31 +311,54 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
 </section>
 
 <section class="contact-section" id="contact">
-  <div class="contact-wrap">
-    <div class="fade-in">
-      <div class="section-label">Get In Touch</div>
-      <div class="contact-links">
-        <div onclick="openEmail('New Project Inquiry','Hi Zain, I would like to discuss a project with you.')" class="contact-link">
-          <div class="cl-icon cl-mail">📧</div>
-          <div class="cl-text"><div class="cl-label">Email</div><div class="cl-val">nexora.official24.7@gmail.com</div></div>
-          <div class="cl-arrow">→</div>
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-h fade-in">Let's Build Something Great</h2>
+  <p class="section-sub fade-in" style="transition-delay:.1s">Have a project in mind? Fill out the form and I'll get back to you shortly.</p>
+
+  <div class="contact-box fade-in" style="transition-delay:.2s">
+    <span class="plus-corner tl">+</span>
+    <span class="plus-corner tr">+</span>
+    <span class="plus-corner bl">+</span>
+    <span class="plus-corner br">+</span>
+
+    <div>
+      <h3 class="contact-heading">Get in touch</h3>
+      <p class="contact-lede">If you have any questions regarding my services or need help with a project, fill out the form. I do my best to respond within 1 business day.</p>
+      <div class="info-blocks">
+        <div class="info-block">
+          <div class="info-block-icon">📧</div>
+          <div>
+            <div class="info-block-title">Email</div>
+            <div class="info-block-val"><a onclick="openEmail('Hello','Hi Zain!')" style="cursor:pointer;">nexora.official24.7@gmail.com</a></div>
+          </div>
         </div>
-        <a href="https://instagram.com/nexora24_7" target="_blank" class="contact-link">
-          <div class="cl-icon cl-ig">📸</div>
-          <div class="cl-text"><div class="cl-label">Instagram</div><div class="cl-val">@nexora24_7</div></div>
-          <div class="cl-arrow">→</div>
-        </a>
-        <a href="https://gettnexorax.vercel.app" target="_blank" class="contact-link">
-          <div class="cl-icon cl-web">🌐</div>
-          <div class="cl-text"><div class="cl-label">Agency Website</div><div class="cl-val">gettnexorax.vercel.app</div></div>
-          <div class="cl-arrow">→</div>
-        </a>
+        <div class="info-block">
+          <div class="info-block-icon">📍</div>
+          <div>
+            <div class="info-block-title">Location</div>
+            <div class="info-block-val">Karachi, Pakistan</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="fade-in" style="transition-delay:.15s">
-      <h2 class="big-cta">Let's Build<br><span>Something</span><br>Great.</h2>
-      <p class="cta-p">Have a project in mind? Whether it's a website, mobile app, AI solution, or full brand identity — I'm ready to bring your vision to life. Let's connect and make it happen.</p>
-      <button onclick="openEmail('New Project Inquiry','Hi Zain, I\'d like to discuss a project with you.')" class="btn-fill">Start a Conversation →</button>
+
+    <div>
+      <form id="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" id="cf-name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="cf-email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" id="cf-message" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit →</button>
+        <p class="form-note">This opens a pre-filled email to Zain — no data is stored.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -407,6 +367,14 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-i
   <div class="f-logo">ZAIN<span>.</span>DEV</div>
   <p class="f-copy">© 2025 Zain ul Abideen Khan · Founder of NEXORA · Built with passion from Karachi 🇵🇰</p>
 </footer>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
 
 <script>
 // ── Smart Email Opener ──────────────────────────────────────────────────────
@@ -421,15 +389,23 @@ function openEmail(subject, body) {
   }
 }
 
-// ── Skills Data ─────────────────────────────────────────────────────────────
+function handleContactSubmit(e){
+  e.preventDefault();
+  var name = document.getElementById('cf-name').value;
+  var email = document.getElementById('cf-email').value;
+  var message = document.getElementById('cf-message').value;
+  var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+  openEmail('New Project Inquiry from ' + name, body);
+}
+
+// ── Skills Data (trimmed) ───────────────────────────────────────────────────
 const skills = {
   webdev:[
-    {icon:'⚛️',name:'React / Next.js',level:'Expert',pct:95},
+    {icon:'⚛️',name:'React',level:'Expert',pct:95},
     {icon:'🟨',name:'JavaScript / TypeScript',level:'Expert',pct:93},
-    {icon:'🟩',name:'Node.js / Express',level:'Advanced',pct:88},
     {icon:'🐍',name:'Python',level:'Intermediate',pct:75},
     {icon:'🗄️',name:'MongoDB / SQL',level:'Advanced',pct:84},
-    {icon:'☁️',name:'Vercel / AWS',level:'Advanced',pct:82},
+    {icon:'☁️',name:'Vercel',level:'Advanced',pct:82},
   ],
   design:[
     {icon:'🎨',name:'Figma',level:'Expert',pct:96},
@@ -440,14 +416,10 @@ const skills = {
     {icon:'🎭',name:'Motion Design',level:'Advanced',pct:80},
   ],
   mobile:[
-    {icon:'📱',name:'React Native',level:'Advanced',pct:85},
-    {icon:'🦋',name:'Flutter',level:'Intermediate',pct:72},
     {icon:'🔥',name:'Firebase',level:'Advanced',pct:88},
-    {icon:'🍎',name:'iOS / Android',level:'Advanced',pct:83},
   ],
   ai:[
     {icon:'🤖',name:'OpenAI / GPT',level:'Advanced',pct:90},
-    {icon:'🔗',name:'LangChain',level:'Intermediate',pct:76},
     {icon:'🧠',name:'AI Agent Design',level:'Advanced',pct:87},
     {icon:'⚙️',name:'Automation / n8n',level:'Advanced',pct:85},
   ]
@@ -471,15 +443,118 @@ function showTab(cat,btn){
 }
 showTab('all',document.querySelector('.tab-btn.active'));
 
+// ── Services Data + Render + Modal ──────────────────────────────────────────
+const services = [
+  {n:'01',icon:'🌐',title:'Web Development',desc:'Custom, high-performance websites and web applications built with modern tech. Fast, secure, responsive, and tailored to your needs.',tags:['React','Node.js','MongoDB'],
+   full:'I build full-stack web applications from the ground up — architecture, backend APIs, database design, and pixel-perfect front-ends. Every build is optimized for speed, SEO, and long-term maintainability, whether it\'s a marketing site or a complex dashboard.'},
+  {n:'02',icon:'🎨',title:'UI / UX Design',desc:'User-centric interfaces that balance aesthetics and usability. From wireframes to fully polished, conversion-ready designs.',tags:['Figma','Prototyping','Research'],
+   full:'Design starts with research — understanding your users and goals — then moves through wireframes, prototypes, and high-fidelity screens. I focus on interfaces that look great and actually convert, backed by usability testing.'},
+  {n:'03',icon:'📱',title:'Mobile Apps',desc:'Cross-platform mobile applications with smooth, native-level performance and intuitive interfaces users love.',tags:['Firebase','Cross-Platform','UX'],
+   full:'I build mobile apps that feel native — smooth animations, offline support, push notifications, and real-time syncing via Firebase — all wrapped in an interface people enjoy using daily.'},
+  {n:'04',icon:'🤖',title:'AI Agents & Automation',desc:'Intelligent AI agents that automate workflows, engage customers, and supercharge your business operations 24/7.',tags:['OpenAI','Automation','Chatbots'],
+   full:'From customer-support chatbots to internal workflow automations, I design AI agents around OpenAI\'s models that qualify leads, answer questions, and handle repetitive tasks — freeing up your team to focus on what matters.'},
+  {n:'05',icon:'📐',title:'Wireframing & Strategy',desc:'Strategic product blueprints that map out structure, flow, and user journeys before a single line of code is written.',tags:['Figma','Miro','User Flows'],
+   full:'Before development starts, I map out the full product — information architecture, user flows, and low-fidelity wireframes — so every stakeholder is aligned and every build decision has a clear rationale behind it.'},
+  {n:'06',icon:'⚡',title:'Performance & SEO',desc:'Speed audits, Core Web Vitals tuning, and SEO optimization that push your digital presence to the top.',tags:['Core Web Vitals','SEO','Lighthouse'],
+   full:'I audit and tune sites for real-world speed — image optimization, code-splitting, caching, and Core Web Vitals — paired with on-page SEO so your site both loads fast and ranks well.'}
+];
+
+function renderServices(){
+  const grid = document.getElementById('svc-grid');
+  grid.innerHTML = services.map((s,i)=>`
+    <div class="svc-card" onclick="openServiceModal(${i})">
+      <div class="svc-n">${s.n}</div>
+      <div class="svc-ico">${s.icon}</div>
+      <div class="svc-title">${s.title}</div>
+      <p class="svc-desc">${s.desc}</p>
+      <div class="svc-tags">${s.tags.map(t=>`<span class="svc-tag">${t}</span>`).join('')}</div>
+      <div class="svc-arrow">↗</div>
+    </div>
+  `).join('');
+}
+renderServices();
+
+function openServiceModal(i){
+  const s = services[i];
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-n">Service ${s.n}</div>
+    <div class="modal-ico">${s.icon}</div>
+    <h3 class="modal-title">${s.title}</h3>
+    <p class="modal-desc">${s.full}</p>
+    <div class="modal-tags">${s.tags.map(t=>`<span class="modal-badge">${t}</span>`).join('')}</div>
+    <button class="btn-fill" style="width:100%;text-align:center" onclick="closeModal();openEmail('Inquiry — ${s.title}','Hi Zain, I would like to discuss the ${s.title} service.')">Enquire About This →</button>
+  `;
+  openModal();
+}
+
+// ── Projects Data + Render + Modal ──────────────────────────────────────────
+const projects = [
+  {icon:'🏢',thumb:'proj-thumb-nexora',badge:'Live',badgeClass:'',title:'NEXORA Agency Website',desc:'Full brand identity + website for Nexora digital agency. Features modern UI, service showcase, and lead capture.',tech:['React','Vercel','UI/UX'],
+   full:'The official website for Nexora — designed and built end-to-end, including brand identity, service pages, and a conversion-focused lead capture flow. Live and actively used to bring in client inquiries.'},
+  {icon:'🛒',thumb:'proj-thumb-ecom',badge:'In Development',badgeClass:'wip',title:'E-Commerce Platform',desc:'Full-stack e-commerce solution with product management, cart, payments, and admin dashboard for a retail client.',tech:['Next.js','Stripe','MongoDB'],
+   full:'A complete e-commerce build for a retail client — product catalog, cart and checkout with Stripe payments, order tracking, and an admin dashboard for inventory management. Currently in active development.'},
+  {icon:'📱',thumb:'proj-thumb-app',badge:'In Development',badgeClass:'wip',title:'Mobile App — Client Project',desc:'Cross-platform mobile application with real-time features, push notifications, and a polished user experience.',tech:['Firebase','Cross-Platform'],
+   full:'A cross-platform mobile app with real-time data sync, push notifications, and a clean, intuitive UI — built for a client looking to bring their service into a native mobile experience.'},
+  {icon:'🤖',thumb:'proj-thumb-ai',badge:'In Development',badgeClass:'wip',title:'AI Customer Agent',desc:'Intelligent AI-powered chat agent for automated customer support, lead qualification, and appointment booking.',tech:['OpenAI','Node.js','Automation'],
+   full:'An AI-powered support agent that handles common customer questions, qualifies leads, and books appointments automatically — reducing response time and manual support workload for the client.'}
+];
+
+function renderProjects(){
+  const grid = document.getElementById('proj-grid');
+  grid.innerHTML = projects.map((p,i)=>`
+    <div class="proj-card" onclick="openProjectModal(${i})">
+      <div class="proj-thumb ${p.thumb}">${p.icon}</div>
+      <div class="proj-inner">
+        <div class="proj-badge ${p.badgeClass}">${p.badge}</div>
+        <div class="proj-title">${p.title}</div>
+        <p class="proj-desc">${p.desc}</p>
+        <div class="proj-tech">${p.tech.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+renderProjects();
+
+function openProjectModal(i){
+  const p = projects[i];
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-badge ${p.badgeClass}">${p.badge}</div>
+    <div class="modal-ico">${p.icon}</div>
+    <h3 class="modal-title">${p.title}</h3>
+    <p class="modal-desc">${p.full}</p>
+    <div class="modal-tags">${p.tech.map(t=>`<span class="modal-badge">${t}</span>`).join('')}</div>
+    <button class="btn-fill" style="width:100%;text-align:center" onclick="closeModal();openEmail('Project Preview Request','Hi Zain, I would like to request a preview of ${p.title}.')">Request Preview →</button>
+  `;
+  openModal();
+}
+
+// ── Modal Core (freezes background) ─────────────────────────────────────────
+function openModal(){
+  document.getElementById('modal-overlay').classList.add('active');
+  document.body.classList.add('no-scroll');
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('active');
+  document.body.classList.remove('no-scroll');
+}
+function closeModalOnBg(e){
+  if(e.target.id === 'modal-overlay') closeModal();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
 // ── Custom Cursor ───────────────────────────────────────────────────────────
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px';});
 (function anim(){rx+=(mx-rx-16)*.13;ry+=(my-ry-16)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,.svc-card,.proj-card,.skill-card,.contact-link').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.transform='scale(1.5)';});
-  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.transform='scale(1)';});
-});
+
+function bindHoverGrow(){
+  document.querySelectorAll('a,button,.svc-card,.proj-card,.skill-card,.contact-link,.form-input,.form-textarea').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.transform='scale(1.5)';});
+    el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.transform='scale(1)';});
+  });
+}
+bindHoverGrow();
 
 // ── Scroll Reveal ───────────────────────────────────────────────────────────
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
